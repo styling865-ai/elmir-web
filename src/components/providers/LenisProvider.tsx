@@ -13,8 +13,10 @@ export function LenisProvider({ children }: Props) {
         lerp: 0.085,
         smoothWheel: true,
         wheelMultiplier: 1.18,
-        touchMultiplier: 1.05,
-        syncTouch: false,
+        touchMultiplier: 1.12,
+        /* Native finger scrolling + Lenis; avoids “fighting” the page on phones. */
+        syncTouch: true,
+        syncTouchLerp: 0.075,
         anchors: true,
         /* Let nested overflow regions (horizontal carousels) receive wheel without trapping page scroll. */
         allowNestedScroll: true,

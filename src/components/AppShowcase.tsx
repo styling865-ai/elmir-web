@@ -238,19 +238,27 @@ function TiltSlideCard({
 export function AppShowcase() {
   const reduced = useReducedMotion() ?? false
   const focalRef = useRef<HTMLElement>(null)
+  const scrollerRef = useRef<HTMLDivElement>(null)
 
+  /** Center the focal card horizontally inside the carousel only — never scroll the page. */
   useLayoutEffect(() => {
-    const run = () => {
+    const centerMobileCarousel = () => {
       if (window.matchMedia('(min-width: 768px)').matches) return
-      focalRef.current?.scrollIntoView({
-        inline: 'center',
-        block: 'nearest',
-        behavior: 'auto',
-      })
+      const scroller = scrollerRef.current
+      const focal = focalRef.current
+      if (!scroller || !focal) return
+      const sRect = scroller.getBoundingClientRect()
+      const fRect = focal.getBoundingClientRect()
+      const delta = fRect.left - sRect.left - (sRect.width - fRect.width) / 2
+      scroller.scrollTo({ left: scroller.scrollLeft + delta, behavior: 'auto' })
     }
-    run()
-    window.addEventListener('resize', run)
-    return () => window.removeEventListener('resize', run)
+    centerMobileCarousel()
+    const t = window.setTimeout(centerMobileCarousel, 0)
+    window.addEventListener('resize', centerMobileCarousel)
+    return () => {
+      window.clearTimeout(t)
+      window.removeEventListener('resize', centerMobileCarousel)
+    }
   }, [])
 
   return (
@@ -310,7 +318,10 @@ export function AppShowcase() {
           </p>
         </motion.div>
 
-        <div className="mt-14 flex snap-x snap-mandatory justify-start gap-7 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mt-16 md:justify-center md:overflow-x-visible [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={scrollerRef}
+          className="mt-14 flex snap-x snap-mandatory justify-start gap-7 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mt-16 md:justify-center md:overflow-x-visible [&::-webkit-scrollbar]:hidden"
+        >
           {slides.map((slide, idx) => (
             <TiltSlideCard
               key={slide.id}
