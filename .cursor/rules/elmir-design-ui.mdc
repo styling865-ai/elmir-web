@@ -1,0 +1,28 @@
+---
+description: ELMIR — motion, registries (21st/shadcn), UX polish for frontend work
+alwaysApply: true
+---
+
+# ELMIR frontend & UI guardrails
+
+Apply these whenever editing UI in this repo (marketing site: Vite, React, Tailwind v4, `motion`).
+
+## Motion
+
+- Use `motion/react` for meaningful motion: section entrances, hover/tap feedback, modals/dialog presence. Prefer restrained curves (e.g. `ease: [0.22, 1, 0.36, 1]`, durations roughly **0.35–0.65s**).
+- Respect accessibility: check `useReducedMotion()` where there are loops or large movement; provide static or shorter variants.
+
+## Components — shadcn + 21st.dev
+
+- Prefer adding primitives through **`npm run ui:add`** (shadcn CLI) once `components.json` exists.
+- For **21st.dev** (and similar registries): use the **exact install snippet / registry URL** the block provides (often `npx shadcn@latest add "<registry-url>"`). Match imports and paths to this project’s structure.
+
+## UX / visual bar (“premium” discipline)
+
+- **Hierarchy**: one clear focal point per section; readable type scale; breathing room (spacing rhythm), not cramped stacks.
+- **Touch / desktop**: interactive controls large enough to hit comfortably; keyboard users get visible **`:focus-visible`** styles.
+- **Brand**: reuse **`--elmir-*`** tokens and moss/ivory language from `src/index.css` — avoid muddy neutral greys on green (`white/` opacity tricks read grey on foliage).
+
+## Integration order
+
+- Extend patterns already in `HeroRotator`, `Features`, `AppShowcase`, `Header` before introducing a second animation or component system.
