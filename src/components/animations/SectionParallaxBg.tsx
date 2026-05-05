@@ -39,16 +39,20 @@ export function SectionParallaxBg({ src, alt = '' }: Props) {
       return gsap.context(() => {
         gsap.fromTo(
           el,
-          { yPercent: -10 },
+          { yPercent: -8 },
           {
-            yPercent: 10,
+            yPercent: 8,
             ease: 'none',
             scrollTrigger: {
               trigger,
               start: 'top bottom',
               end: 'bottom top',
-              /* Tighter than ~1s: less animation “catch-up” work while Lenis is moving. */
-              scrub: true,
+              /*
+                Boolean scrub = 1:1 with scrollbar — fights Lenis micro-steps and stutters.
+                Numeric scrub = smoothed catch-up (seconds) — much smoother with smooth scroll.
+              */
+              scrub: 0.85,
+              fastScrollEnd: true,
             },
           },
         )
@@ -79,7 +83,7 @@ export function SectionParallaxBg({ src, alt = '' }: Props) {
         ref={imgRef}
         src={src}
         alt={alt}
-        className="absolute left-1/2 top-1/2 h-[130%] min-h-full w-full max-w-none -translate-x-1/2 -translate-y-1/2 object-cover opacity-[0.2] saturate-[0.75] md:opacity-[0.26]"
+        className="absolute left-1/2 top-1/2 h-[130%] min-h-full w-full max-w-none -translate-x-1/2 -translate-y-1/2 object-cover opacity-[0.2] saturate-[0.75] md:opacity-[0.26] [will-change:transform]"
         loading="lazy"
         decoding="async"
         width={1600}

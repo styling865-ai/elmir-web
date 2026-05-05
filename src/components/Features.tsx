@@ -812,6 +812,7 @@ function FeatureCoupleSection({ reduced }: { reduced: boolean }) {
                       alt={`${vibe.lookLabel} — coordinated look`}
                       className="absolute inset-0 h-full w-full object-cover object-center"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/68 via-black/10 to-black/28" />
                     <div className="absolute bottom-4 left-4 max-w-[min(100%,240px)] rounded-xl border border-[rgba(255,255,255,0.12)] bg-black/58 px-3 py-2 backdrop-blur-md">
@@ -1335,13 +1336,6 @@ function WeatherStage({ reduced }: { reduced: boolean }) {
 
   return (
     <div ref={containerRef} className="relative mx-auto w-full max-w-[520px]">
-      <motion.div
-        className="pointer-events-none absolute -right-10 top-10 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(160,210,170,0.38),transparent_62%)] blur-3xl"
-        animate={reduced ? undefined : { opacity: [0.22, 0.4, 0.22] }}
-        transition={reduced ? undefined : { duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        aria-hidden
-      />
-
       <motion.div
         className="relative overflow-hidden rounded-[32px] border border-[color:var(--elmir-glass-border)] bg-[rgba(22,40,28,0.38)] shadow-[0_30px_120px_rgba(10,26,18,0.55)]"
         animate={reduced ? undefined : { y: [0, -10, 0] }}

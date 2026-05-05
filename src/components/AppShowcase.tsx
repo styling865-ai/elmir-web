@@ -109,6 +109,7 @@ function PhotoCardContent({
           alt=""
           className="h-full w-full object-cover"
           loading="lazy"
+          decoding="async"
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#faf8f3] via-[#faf8f3]/75 to-transparent" />
         <div className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--green-600)] text-[#fffef9] shadow-[0_6px_20px_rgba(45,90,45,0.22)]">

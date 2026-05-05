@@ -283,14 +283,8 @@
         #485442 74%,
         #3a4338 100%
       );
-    /* `fixed` repaints the full gradient every scroll frame — brutal on mobile + Lenis. */
+    /* Keep scroll — `fixed` repaints the entire viewport every frame with Lenis (severe jank). */
     background-attachment: scroll;
-  }
-
-  @media (min-width: 768px) {
-    body {
-      background-attachment: fixed;
-    }
   }
 
   #root {

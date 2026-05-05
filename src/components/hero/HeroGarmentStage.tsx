@@ -15,26 +15,35 @@ function DressModel({ url, targetHeight }: { url: string; targetHeight: number }
   const gltf = useGLTF(url)
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/immutability -- one-time GLTF scene prep */
-    gltf.scene.traverse((o) => {
+    const root = gltf.scene
+    /* useGLTF caches the scene; scale/position survive unmount — reset so each mount fits from source bounds. */
+    root.scale.set(1, 1, 1)
+    root.position.set(0, 0, 0)
+    root.rotation.set(0, 0, 0)
+    root.quaternion.identity()
+    root.updateMatrixWorld(true)
+
+    root.traverse((o) => {
       const m = o as THREE.Mesh
       if (m.isMesh) {
         m.castShadow = true
         m.receiveShadow = true
       }
     })
-    _box.setFromObject(gltf.scene)
+    _box.setFromObject(root)
     if (_box.isEmpty()) return
     _box.getSize(_size)
     const h = Math.max(_size.y, 0.001)
     const target = targetHeight
     const s = target / h
-    gltf.scene.scale.setScalar(s)
-    _box.setFromObject(gltf.scene)
+    root.scale.setScalar(s)
+    _box.setFromObject(root)
     const c = new THREE.Vector3()
     _box.getCenter(c)
-    gltf.scene.position.sub(c)
-    _box.setFromObject(gltf.scene)
-    gltf.scene.position.y -= _box.min.y
+    root.position.sub(c)
+    _box.setFromObject(root)
+    root.position.y -= _box.min.y
+    root.updateMatrixWorld(true)
     /* eslint-enable react-hooks/immutability */
   }, [gltf, targetHeight])
   return <primitive object={gltf.scene} />

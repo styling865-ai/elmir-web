@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Logo } from './Logo'
 import { SectionParallaxBg } from './animations/SectionParallaxBg'
 
@@ -43,7 +44,7 @@ export function Footer() {
         {/* —— Waitlist (same page region as footer; one visual system) —— */}
         <div className="relative border-b border-[rgba(188,225,208,0.14)] py-20 md:py-28">
           <motion.div
-            className="pointer-events-none absolute left-[12%] top-[28%] h-[min(42vw,380px)] w-[min(42vw,380px)] rounded-full bg-[radial-gradient(circle,rgba(126,200,126,0.32),rgba(100,160,120,0.14),transparent_55%)] blur-2xl"
+            className="pointer-events-none absolute left-[12%] top-[28%] h-[min(42vw,380px)] w-[min(42vw,380px)] rounded-full bg-[radial-gradient(circle,rgba(126,200,126,0.32),rgba(100,160,120,0.14),transparent_55%)] blur-2xl [will-change:transform]"
             aria-hidden
             animate={
               reduced
@@ -235,9 +236,9 @@ export function Footer() {
             <a className={navLink} href="#looks">
               Looks
             </a>
-            <a className={navLink} href="#app">
+            <Link className={navLink} to="/coming-soon">
               App
-            </a>
+            </Link>
             <a className={navLink} href="#features">
               Features
             </a>

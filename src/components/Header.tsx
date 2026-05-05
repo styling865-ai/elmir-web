@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useUiStore } from '../store/uiStore'
 import { cn } from '../lib/utils'
 import { Logo } from './Logo'
@@ -40,8 +41,8 @@ export function Header() {
       )}
     >
       <div className="pointer-events-auto flex w-full max-w-6xl items-center justify-between gap-4 md:gap-6">
-        <a
-          href="#"
+        <Link
+          to="/"
           className="flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-[#c9a84c]/80"
           aria-label="ELMIR home"
         >
@@ -49,7 +50,7 @@ export function Header() {
           <span className="font-serif text-[1.125rem] font-semibold leading-none tracking-[0.12em] text-white md:text-[1.2rem]">
             ELMIR
           </span>
-        </a>
+        </Link>
         <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 md:gap-x-6">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-white/60 md:gap-x-8">
             {links.map((l) => (
@@ -62,12 +63,12 @@ export function Header() {
               </a>
             ))}
           </div>
-          <a
-            href="#app"
+          <Link
+            to="/coming-soon"
             className="hidden shrink-0 rounded-full border border-white/45 px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-white/80 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80 sm:inline-flex"
           >
             Try On Now →
-          </a>
+          </Link>
         </nav>
       </div>
     </motion.header>

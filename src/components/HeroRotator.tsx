@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { Suspense, lazy, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useUiStore } from '../store/uiStore'
 import { cn } from '../lib/utils'
 
@@ -71,8 +72,9 @@ export function HeroRotator() {
           'h-[min(88svh,920px)]',
           'max-md:h-[min(92svh,820px)] max-md:max-w-full max-md:rounded-[28px]',
         )}
-        initial={{ scale: 0.96, opacity: 0 }}
-        animate={show || rm ? { scale: 1, opacity: 1 } : { scale: 0.96, opacity: 0 }}
+        /* No scale/translate on this wrapper — transforms here break WebGL canvas sizing. */
+        initial={{ opacity: 0 }}
+        animate={show || rm ? { opacity: 1 } : { opacity: 0 }}
         transition={{
           duration: rm ? 0.01 : 0.6,
           delay: rm ? 0 : show ? 0.2 : 0,
@@ -168,12 +170,12 @@ export function HeroRotator() {
                   ease: textEase,
                 }}
               >
-                <a
-                  href="#app"
+                <Link
+                  to="/coming-soon"
                   className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[rgba(201,168,76,0.5)] bg-transparent px-6 py-3 font-[family-name:var(--font-body)] text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white outline-none transition-all duration-200 ease-out hover:-translate-y-px hover:border-[#c9a84c] hover:bg-[rgba(201,168,76,0.1)] hover:shadow-[0_0_25px_rgba(201,168,76,0.35),0_0_50px_rgba(201,168,76,0.15)] focus-visible:ring-2 focus-visible:ring-[#c9a84c]/80"
                 >
                   Try On Now →
-                </a>
+                </Link>
                 <a
                   href="#features"
                   className="group relative inline-flex min-h-[44px] items-center justify-center overflow-hidden rounded-full border-none bg-transparent px-6 py-3 font-[family-name:var(--font-body)] text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-[rgba(255,255,255,0.4)] outline-none transition-colors duration-200 ease-out after:pointer-events-none after:absolute after:bottom-[-2px] after:left-0 after:h-px after:w-0 after:bg-[rgba(255,255,255,0.5)] after:transition-[width] after:duration-300 after:ease-out hover:text-[rgba(255,255,255,0.9)] hover:after:w-full focus-visible:ring-2 focus-visible:ring-[#c9a84c]/60"

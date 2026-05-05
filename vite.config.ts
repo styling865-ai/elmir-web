@@ -6,7 +6,38 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    // Hero lazy-loads R3F + three + Drei (~1MB gzipped asset is expected for the GLTF viewer).
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'vendor'
+          }
+          if (id.includes('node_modules/motion/')) {
+            return 'animations'
+          }
+          if (
+            id.includes('node_modules/three/') ||
+            id.includes('node_modules/@react-three/') ||
+            id.includes('node_modules/postprocessing/')
+          ) {
+            return 'three'
+          }
+          if (id.includes('node_modules/gsap/')) {
+            return 'gsap'
+          }
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'motion', 'three'],
   },
 })

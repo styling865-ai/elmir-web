@@ -1,0 +1,14 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/assets/*",
+      "/features/*",
+      "/models/*",
+      "/favicon.svg",
+      "/icons.svg",
+      "/hero-outside-bg.png",
+      "/hero-studio.png"
+    ]
+  }
+}

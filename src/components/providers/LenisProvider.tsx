@@ -10,13 +10,14 @@ export function LenisProvider({ children }: Props) {
       root
       autoRaf={false}
       options={{
-        lerp: 0.085,
+        /* Slightly higher lerp: Lenis stays closer to ScrollTrigger / wheel delta (less “rubber band” backlog). */
+        lerp: 0.1,
         smoothWheel: true,
-        wheelMultiplier: 1.18,
-        touchMultiplier: 1.12,
+        wheelMultiplier: 1.12,
+        touchMultiplier: 1.08,
         /* Native finger scrolling + Lenis; avoids “fighting” the page on phones. */
         syncTouch: true,
-        syncTouchLerp: 0.075,
+        syncTouchLerp: 0.088,
         anchors: true,
         /* Let nested overflow regions (horizontal carousels) receive wheel without trapping page scroll. */
         allowNestedScroll: true,
